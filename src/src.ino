@@ -1,128 +1,19 @@
-// int tinkerCADhBridgeFix = 2;
-int backwardRight = 8;
-int forwardRight = 9;
-int forwardLeft = 10;
-int backwardLeft = 11;
-// int buttonForward = 8;
-// int buttonRear = 9;
-// int buttonRight = 10;
-// int buttonLeft = 11;
-// int rearLEDindicator = 12;
+#define BT_RX_PIN 14
+#define BT_TX_PIN 15
+const int US_TRIG_PIN = 10;
+const int US_ECHO_PIN = 11;
 
-// Pin number for the internal LED on Arduino Mega
-const int ledPin = 13;
+#include "US_HC-SR04.h"
+#include "BT_HC-06_ZS-040.h"
 
 void setup() {
-    // Initialize the LED pin as an output
-    pinMode(ledPin, OUTPUT);
-
-    // pinMode(tinkerCADhBridgeFix, OUTPUT);
-    pinMode(backwardRight, OUTPUT);
-    pinMode(forwardRight, OUTPUT);
-    pinMode(forwardLeft, OUTPUT);
-    pinMode(backwardLeft, OUTPUT);
-    // pinMode(rearLEDindicator, OUTPUT);
-    // pinMode(buttonForward, INPUT);
-    // pinMode(buttonRear, INPUT);
-    // pinMode(buttonRight, INPUT);
-    // pinMode(buttonLeft, INPUT);
-
     Serial.begin(9600);
-}
-
-void forwards() {
-    // digitalWrite(tinkerCADhBridgeFix, HIGH);
-    digitalWrite(backwardRight, LOW);
-    digitalWrite(forwardRight, HIGH);
-    digitalWrite(forwardLeft, HIGH);
-    digitalWrite(backwardLeft, LOW);
-}
-
-void backwards() {
-    // digitalWrite(tinkerCADhBridgeFix, HIGH);
-    // digitalWrite(rearLEDindicator, HIGH);
-    digitalWrite(backwardRight, HIGH);
-    digitalWrite(forwardRight, LOW);
-    digitalWrite(forwardLeft, LOW);
-    digitalWrite(backwardLeft, HIGH);
-}
-
-void turnRight() {
-    // digitalWrite(tinkerCADhBridgeFix, HIGH);
-    digitalWrite(backwardRight, HIGH);
-    digitalWrite(forwardRight, LOW);
-    digitalWrite(forwardLeft, HIGH);
-    digitalWrite(backwardLeft, LOW);
-}
-
-void turnLeft() {
-    // digitalWrite(tinkerCADhBridgeFix, HIGH);
-    digitalWrite(backwardRight, LOW);
-    digitalWrite(forwardRight, HIGH);
-    digitalWrite(forwardLeft, LOW);
-    digitalWrite(backwardLeft, HIGH);
-}
-
-void fullStop() {
-    // digitalWrite(tinkerCADhBridgeFix, LOW);
-    digitalWrite(backwardRight, LOW);
-    digitalWrite(forwardRight, LOW);
-    digitalWrite(forwardLeft, LOW);
-    digitalWrite(backwardLeft, LOW);
-    // digitalWrite(rearLEDindicator, LOW);
+    BT.BT_Setup();
+    US.US_Setup(US_TRIG_PIN, US_ECHO_PIN);
 }
 
 void loop() {
-    // Turn the LED on
-    digitalWrite(ledPin, HIGH);
-    delay(17); // Wait for 1 second (1000 milliseconds)
-
-    // Turn the LED off
-    digitalWrite(ledPin, LOW);
-    delay(17); // Wait for 1 second (1000 milliseconds)
-
-    // test
-    // digitalWrite(backwardRight, LOW);  // 8
-    // digitalWrite(forwardRight, HIGH);   // 9
-    // digitalWrite(forwardLeft, HIGH);    // 10
-    // digitalWrite(backwardLeft, LOW);   // 11
-
-    // // forwards
-    // digitalWrite(backwardRight, LOW);
-    // digitalWrite(forwardRight, HIGH);
-    // digitalWrite(forwardLeft, HIGH);
-    // digitalWrite(backwardLeft, LOW);
-
-    // delay(1000);
-
-    // // backwards()
-    // digitalWrite(backwardRight, HIGH);
-    // digitalWrite(forwardRight, LOW);
-    // digitalWrite(forwardLeft, LOW);
-    // digitalWrite(backwardLeft, HIGH);
-
-    // delay(1000);
-
-    // // while(digitalRead(buttonForward) == HIGH) {
-    //     forwards();
-    //     delay(2000);
-    // // }
-
-    // // while(digitalRead(buttonRear) == HIGH) {
-    //     backwards();
-    //     delay(2000);
-    // // }
-
-    // // while(digitalRead(buttonRight) == HIGH) {
-    //     turnRight();
-    //     delay(2000);
-    // // }
-
-    // // while(digitalRead(buttonLeft) == HIGH) {
-    //     turnLeft();
-    //     delay(2000);
-    // // }
-
-    // fullStop();
-    // delay(2000);
+    US.US_Loop();
+    US.US_Display();
+    BT.BT_Loop();
 }
