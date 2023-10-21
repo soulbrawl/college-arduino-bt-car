@@ -1,0 +1,8 @@
+{
+    "sketch": "src/src.ino",
+    "configuration": "cpu=atmega2560",
+    "board": "arduino:avr:uno",
+    "programmer": "avrisp",
+    "port": "COM3"
+    "output": "output/ArduinoOutput"
+}
