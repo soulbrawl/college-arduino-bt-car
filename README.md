@@ -19,7 +19,7 @@ College project involving a car controlled by an Arduino MEGA via Bluetooth also
 
 # DONE
 - [x] Figure out how to split the project code into multiple files
-  Writing the basics of the header files:
+  - Writing the basics of the header files:
     - [x] `US_HC-SR04.h`
     - [x] `BT_HC-06_ZS-040.h`
   - [x] Get the multiple files working together (at least 'Verifiable')
