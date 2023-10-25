@@ -1,19 +1,23 @@
-#define BT_RX_PIN 14
-#define BT_TX_PIN 15
-const int US_TRIG_PIN = 10;
-const int US_ECHO_PIN = 11;
+#include <string.h>
 
+#include "pin.h"
+// #include "engine.h"
 #include "US_HC-SR04.h"
-#include "BT_HC-06_ZS-040.h"
+// #include "BT_HC-06_ZS-040.h"
 
 void setup() {
+    // engineSetup();
+    // BT.BT_Setup();
+    ultrasonicSensorSetup();
     Serial.begin(9600);
-    BT.BT_Setup();
-    US.US_Setup(US_TRIG_PIN, US_ECHO_PIN);
+
+    // Debugging
+    // engineTestingRoutine(); // running once the car is started
 }
 
 void loop() {
-    US.US_Loop();
-    US.US_Display();
-    BT.BT_Loop();
+    // BT.BT_Loop();
+
+    ultrasonicSensorTestingRoutine();
+    // engineTestingRoutine();
 }

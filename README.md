@@ -1,5 +1,5 @@
 # college-arduino-bt-car
-College project involving a car controlled by an Arduino MEGA via Bluetooth also featuring a Ultrassonic Sensor.
+College project involving a car controlled by an Arduino MEGA via Bluetooth also featuring a Ultrasonic Sensor.
 
 - Bluetooth Module: **ZS-040 (HC-06)**
 	- https://www.martyncurrey.com/arduino-and-hc-06-zs-040/
