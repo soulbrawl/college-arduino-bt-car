@@ -9,9 +9,10 @@ class UltrasonicSensor {
         String _id;
 
     public:
-        UltrasonicSensor(String id) {
-            _id = id;
-        }
+        // Constructor
+        // UltrasonicSensor(String id) {
+        //     _id = id;
+        // }
 
         void US_Setup(int trigPin, int echoPin) {
             // HC-04 variables
@@ -63,21 +64,21 @@ class UltrasonicSensor {
             // Serial.print("                "); // or using a Display module
         }
 };
+UltrasonicSensor US_FL;
+UltrasonicSensor US_FR;
+UltrasonicSensor US_BL;
+UltrasonicSensor US_BR;
 
 // creating each Ultrasonic Sensor class/object
-UltrasonicSensor ultrasonicSensors[] = {
-    UltrasonicSensor("FL"),
-    UltrasonicSensor("FR"),
-    UltrasonicSensor("BL"),
-    UltrasonicSensor("BR")
-};
-// UltrasonicSensor US_FL;
-// UltrasonicSensor US_FR;
-// UltrasonicSensor US_BL;
-// UltrasonicSensor US_BR;
+// UltrasonicSensor ultrasonicSensors[] = {
+//     UltrasonicSensor("FL"),
+//     UltrasonicSensor("FR"),
+//     UltrasonicSensor("BL"),
+//     UltrasonicSensor("BR")
+// };
 
 void ultrasonicSensorSetup() {
-    ultrasonicSensors[0].US_Setup(US_FL_TRIG_PIN, US_FL_ECHO_PIN);
+    US_FL.US_Setup(US_FL_TRIG_PIN, US_FL_ECHO_PIN);
     US_FR.US_Setup(US_FR_TRIG_PIN, US_FR_ECHO_PIN);
     US_BL.US_Setup(US_BL_TRIG_PIN, US_BL_ECHO_PIN);
     US_BR.US_Setup(US_BR_TRIG_PIN, US_BR_ECHO_PIN);
@@ -92,11 +93,11 @@ String sensorNames[] = {"FL", "FR", "BL", "BR"};
 
 void ultrasonicSensorTestingRoutine() {
 
-    for (int i = 0; i < 4; i++) {
-        ultrasonicSensors[i].US_Loop();
-        Serial.print(sensorNames[i] + ": ");
-        ultrasonicSensors[i].US_Display();
-    }
+    // for (int i = 0; i < 4; i++) {
+    //     ultrasonicSensors[i].US_Loop();
+    //     Serial.print(sensorNames[i] + ": ");
+    //     ultrasonicSensors[i].US_Display();
+    // }
 
 
     US_FL.US_Loop();
