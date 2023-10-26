@@ -6,31 +6,31 @@ void engineSetup() {
 }
 
 void forwards() {
-    analogWrite(InputFORWARD_Right, 50);
+    analogWrite(InputFORWARD_Right, SPEED);
     digitalWrite(InputBACK_Right, LOW);
-    analogWrite(InputFORWARD_Left, 50);
+    analogWrite(InputFORWARD_Left, SPEED);
     digitalWrite(InputBACK_Left, LOW);
 }
 
 void backwards() {
     digitalWrite(InputFORWARD_Right, LOW);
-    analogWrite(InputBACK_Right, 50);
+    analogWrite(InputBACK_Right, SPEED);
     digitalWrite(InputFORWARD_Left, LOW);
-    analogWrite(InputBACK_Left, 50);
+    analogWrite(InputBACK_Left, SPEED);
 }
 
 void turnRight() {
     digitalWrite(InputFORWARD_Right, LOW);
-    analogWrite(InputBACK_Right, 50);
-    analogWrite(InputFORWARD_Left, 50);
+    analogWrite(InputBACK_Right, SPEED);
+    analogWrite(InputFORWARD_Left, SPEED);
     digitalWrite(InputBACK_Left, LOW);
 }
 
 void turnLeft() {
-    analogWrite(InputFORWARD_Right, 50);
+    analogWrite(InputFORWARD_Right, SPEED);
     digitalWrite(InputBACK_Right, LOW);
     digitalWrite(InputFORWARD_Left, LOW);
-    analogWrite(InputBACK_Left, 50);
+    analogWrite(InputBACK_Left, SPEED);
 }
 
 void stop() {
