@@ -1,43 +1,43 @@
 void engineSetup() {
-    pinMode(InputFORWARD_Right, OUTPUT);
-    pinMode(InputBACK_Right, OUTPUT);
-    pinMode(InputFORWARD_Left, OUTPUT);
-    pinMode(InputBACK_Left, OUTPUT);
+    pinMode(ENGINE_FL, OUTPUT);
+    pinMode(ENGINE_FR, OUTPUT);
+    pinMode(ENGINE_BL, OUTPUT);
+    pinMode(ENGINE_BR, OUTPUT);
 }
 
 void forwards() {
-    analogWrite(InputFORWARD_Right, SPEED);
-    digitalWrite(InputBACK_Right, LOW);
-    analogWrite(InputFORWARD_Left, SPEED);
-    digitalWrite(InputBACK_Left, LOW);
+    analogWrite(ENGINE_FL, SPEED);
+    analogWrite(ENGINE_FR, SPEED);
+    digitalWrite(ENGINE_BL, LOW);
+    digitalWrite(ENGINE_BR, LOW);
 }
 
 void backwards() {
-    digitalWrite(InputFORWARD_Right, LOW);
-    analogWrite(InputBACK_Right, SPEED);
-    digitalWrite(InputFORWARD_Left, LOW);
-    analogWrite(InputBACK_Left, SPEED);
+    digitalWrite(ENGINE_FL, LOW);
+    digitalWrite(ENGINE_FR, LOW);
+    analogWrite(ENGINE_BL, SPEED);
+    analogWrite(ENGINE_BR, SPEED);
 }
 
 void turnRight() {
-    digitalWrite(InputFORWARD_Right, LOW);
-    analogWrite(InputBACK_Right, SPEED);
-    analogWrite(InputFORWARD_Left, SPEED);
-    digitalWrite(InputBACK_Left, LOW);
+    analogWrite(ENGINE_FL, SPEED);
+    digitalWrite(ENGINE_FR, LOW);
+    digitalWrite(ENGINE_BL, LOW);
+    analogWrite(ENGINE_BR, SPEED);
 }
 
 void turnLeft() {
-    analogWrite(InputFORWARD_Right, SPEED);
-    digitalWrite(InputBACK_Right, LOW);
-    digitalWrite(InputFORWARD_Left, LOW);
-    analogWrite(InputBACK_Left, SPEED);
+    digitalWrite(ENGINE_FL, LOW);
+    analogWrite(ENGINE_FR, SPEED);
+    analogWrite(ENGINE_BL, SPEED);
+    digitalWrite(ENGINE_BR, LOW);
 }
 
 void stop() {
-    digitalWrite(InputFORWARD_Right, LOW);
-    digitalWrite(InputBACK_Right, LOW);
-    digitalWrite(InputFORWARD_Left, LOW);
-    digitalWrite(InputBACK_Left, LOW);
+    digitalWrite(ENGINE_FL, LOW);
+    digitalWrite(ENGINE_FR, LOW);
+    digitalWrite(ENGINE_BL, LOW);
+    digitalWrite(ENGINE_BR, LOW);
 }
 
 void (*engineMovementFunctions[])() = {forwards, backwards, turnLeft, turnRight};

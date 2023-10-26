@@ -14,12 +14,12 @@ void setup() {
     Serial.begin(9600);
 
     // Debugging
+    ultrasonicSensorTestingRoutine();
     engineTestingRoutine(); // running once the car is started
 }
 
 void loop() {
     // BT.BT_Loop();
 
-    ultrasonicSensorTestingRoutine();
     // engineTestingRoutine();
 }
