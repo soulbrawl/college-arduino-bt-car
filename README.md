@@ -24,3 +24,9 @@ College project involving a car controlled by an Arduino MEGA via Bluetooth also
     - [x] `BT_HC-06_ZS-040.h`
   - [x] Get the multiple files working together (at least 'Verifiable')
 
+---
+
+@2023-10-26
+- [x] Ultrasonic Sensor pulseIn() duration timeout
+- [x] (commonFunctions.h) runForDuration() function using millis()
+  - [x] while(runForDuration()) for *testingRoutines()

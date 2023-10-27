@@ -19,7 +19,7 @@ class UltrasonicSensor {
 
         void US_Setup(int trigPin, int echoPin) {
             // HC-04 variables
-            long duration;
+            unsigned long duration;
             int distance;
 
             _trigPin = trigPin;
@@ -44,10 +44,13 @@ class UltrasonicSensor {
             digitalWrite(_trigPin, LOW);
 
             // Reads the echoPin, returns the sound wave travel time in microseconds
-            _duration = pulseIn(_echoPin, HIGH);
+            _duration = pulseIn(_echoPin, HIGH, 24000); // _duration * 0.034 / 2 * 400 = 6.8??
 
             // Calculating the distance
             _distanceCm = _duration * 0.034 / 2;
+
+            if (_distanceCm == 0) _distanceCm = 400;
+
         }
 
         // THINKING: maybe this function can be integrated in the one above (US_Loop)
@@ -61,6 +64,7 @@ class UltrasonicSensor {
         // Bluetooth Display (Serial Monitor for now)
         void US_Display() {
             Serial.print(_id);
+            Serial.print(": ");
             Serial.print(_distanceCm);
             Serial.print(" Cm distance");
             Serial.print("\n");
@@ -96,8 +100,9 @@ String sensorNames[] = {"FL", "FR", "BL", "BR"};
 
 void ultrasonicSensorTestingRoutine() {
     for (int i = 0; i < 4; i++) {
-        ultrasonicSensors[i].US_Loop();
-        Serial.print(sensorNames[i] + ": ");
-        ultrasonicSensors[i].US_Display();
+        while (runForDuration(3000)) {
+            ultrasonicSensors[i].US_Loop();
+            ultrasonicSensors[i].US_Display();
+        }
     }
 }

@@ -6,6 +6,7 @@ void engineSetup() {
 }
 
 void forwards() {
+    // while(ultrasonicSensors[0]->US_Distance > 10)
     analogWrite(ENGINE_FL, SPEED);
     analogWrite(ENGINE_FR, SPEED);
     digitalWrite(ENGINE_BL, LOW);
@@ -40,12 +41,12 @@ void stop() {
     digitalWrite(ENGINE_BR, LOW);
 }
 
-void (*engineMovementFunctions[])() = {forwards, backwards, turnLeft, turnRight};
+void (*engineMovementFunctions[5])() = {forwards, backwards, turnLeft, turnRight, stop};
 
 void engineTestingRoutine() {
-    for (int i = 0; i < 4; i++) {
-        engineMovementFunctions[i]();
-        delay(2000);
-        stop();
+    for (int i = 0; i < 5; i++) {
+        while (runForDuration(2000)) {
+            engineMovementFunctions[i]();
+        }
     }
 }
