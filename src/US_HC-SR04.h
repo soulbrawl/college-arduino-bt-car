@@ -5,7 +5,6 @@ class UltrasonicSensor {
         int _trigPin;
         int _echoPin;
         long _duration;
-        int _distanceCm;
         String _id;
 
     public:
@@ -17,15 +16,12 @@ class UltrasonicSensor {
         // Deconstructor
         // ~UltrasonicSensor() { }
 
+        int _distanceCm;
+
         void US_Setup(int trigPin, int echoPin) {
             // HC-04 variables
-            unsigned long duration;
-            int distance;
-
             _trigPin = trigPin;
             _echoPin = echoPin;
-            _duration = duration;
-            _distanceCm = distance;
 
             //HC-SR04 setup
             pinMode(_trigPin, OUTPUT);
@@ -50,14 +46,6 @@ class UltrasonicSensor {
             _distanceCm = _duration * 0.034 / 2;
 
             if (_distanceCm == 0) _distanceCm = 400;
-
-        }
-
-        // THINKING: maybe this function can be integrated in the one above (US_Loop)
-        //           although I don't know if it's the best option/implementation resource-wise
-        //           maybe it would create some overhead or something
-        int US_Distance() {
-            return _distanceCm;
         }
 
         // THINKING: Integrating this function above as well?
@@ -71,10 +59,6 @@ class UltrasonicSensor {
             // Serial.print("                "); // or using a Display module
         }
 };
-// UltrasonicSensor US_FL;
-// UltrasonicSensor US_FR;
-// UltrasonicSensor US_BL;
-// UltrasonicSensor US_BR;
 
 // creating each Ultrasonic Sensor class/object
 UltrasonicSensor ultrasonicSensors[4] = {
@@ -89,11 +73,6 @@ void ultrasonicSensorSetup() {
     ultrasonicSensors[1].US_Setup(US_FR_TRIG_PIN, US_FR_ECHO_PIN);
     ultrasonicSensors[2].US_Setup(US_BL_TRIG_PIN, US_BL_ECHO_PIN);
     ultrasonicSensors[3].US_Setup(US_BR_TRIG_PIN, US_BR_ECHO_PIN);
-
-    // US_FL.US_Setup(US_FL_TRIG_PIN, US_FL_ECHO_PIN);
-    // US_FR.US_Setup(US_FR_TRIG_PIN, US_FR_ECHO_PIN);
-    // US_BL.US_Setup(US_BL_TRIG_PIN, US_BL_ECHO_PIN);
-    // US_BR.US_Setup(US_BR_TRIG_PIN, US_BR_ECHO_PIN);
 }
 
 String sensorNames[] = {"FL", "FR", "BL", "BR"};

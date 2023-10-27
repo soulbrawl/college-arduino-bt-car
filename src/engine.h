@@ -6,11 +6,12 @@ void engineSetup() {
 }
 
 void forwards() {
-    // while(ultrasonicSensors[0]->US_Distance > 10)
-    analogWrite(ENGINE_FL, SPEED);
-    analogWrite(ENGINE_FR, SPEED);
-    digitalWrite(ENGINE_BL, LOW);
-    digitalWrite(ENGINE_BR, LOW);
+    while(ultrasonicSensors->_distanceCm > 10) {
+        analogWrite(ENGINE_FL, SPEED);
+        analogWrite(ENGINE_FR, SPEED);
+        digitalWrite(ENGINE_BL, LOW);
+        digitalWrite(ENGINE_BR, LOW);
+    }
 }
 
 void backwards() {
