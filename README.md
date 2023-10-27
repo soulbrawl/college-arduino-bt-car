@@ -27,6 +27,6 @@ College project involving a car controlled by an Arduino MEGA via Bluetooth also
 ---
 
 @2023-10-26
-- [x] Ultrasonic Sensor pulseIn() duration timeout
-- [x] (commonFunctions.h) runForDuration() function using millis()
-  - [x] while(runForDuration()) for *testingRoutines()
+- [x] Ultrasonic Sensor `pulseIn()` duration **timeout**
+- [x] (`src/commonFunctions.h`) `runForDuration()` function using `millis()`
+  - [x] `while(runForDuration())` for *`testingRoutines()`
