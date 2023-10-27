@@ -4,15 +4,18 @@
 #define SPEED 50 // analog = 0->255
 
 #include "pin.h"
+#include "BT_HC-06_ZS-040.h"
 #include "US_HC-SR04.h"
 #include "engine.h"
-// #include "BT_HC-06_ZS-040.h"
 
 void setup() {
-    engineSetup();
+    Serial.begin(9600); // default=9600
     // BT.BT_Setup();
+    Serial.println("Arduino is ready");
+    Serial.println("Remember to select Both NL & CR (CRLF in VSCode) in the serial monitor");
+
+    engineSetup();
     ultrasonicSensorSetup();
-    Serial.begin(9600);
 
     // Debugging -- running once the car is started
     // engineTestingRoutine();

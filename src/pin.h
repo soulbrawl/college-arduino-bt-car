@@ -1,13 +1,13 @@
 // Using `#define` replaces the value precompiling thus using
 // less memory than creating `const int` variables.
 
+#define BT_RX_PIN 2
+#define BT_TX_PIN 3
+
 #define ENGINE_FL 11
 #define ENGINE_FR 8
 #define ENGINE_BL 10
 #define ENGINE_BR 9
-
-// #define BT_RX_PIN 14
-// #define BT_TX_PIN 15
 
 #define US_FL_TRIG_PIN 52 // 11
 #define US_FL_ECHO_PIN 53 // 10
