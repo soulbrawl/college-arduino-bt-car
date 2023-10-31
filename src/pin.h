@@ -1,8 +1,13 @@
-// Using `#define` replaces the value precompiling thus using
-// less memory than creating `const int` variables.
+// DELETE/COMMENT when VERIFYING/UPLOADING the includes below
+// -- poor fix for VSCode syntax highlighting BUG
+// #define SPEED 50 // analog = 0->255
 
-#define BT_RX_PIN 2
-#define BT_TX_PIN 3
+// Using `#define` REPLACES (like a macro) the value precompiling (or during compiling, not sure)
+// thus using less memory than creating `const int` variables.
+#define BUILTIN_LED 13
+
+#define BT_RX_PIN 0
+#define BT_TX_PIN 1
 
 #define ENGINE_FL 11
 #define ENGINE_FR 8
@@ -17,4 +22,3 @@
 #define US_BL_ECHO_PIN 49
 #define US_BR_TRIG_PIN 46
 #define US_BR_ECHO_PIN 47
-

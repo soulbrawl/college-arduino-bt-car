@@ -1,7 +1,8 @@
 # college-arduino-bt-car
-College project involving a car controlled by an Arduino MEGA via Bluetooth also featuring a Ultrasonic Sensor.
+College project involving a RC car controlled by an Arduino MEGA via Bluetooth also featuring Ultrasonic Sensors to prevent crashing.
 
-- Bluetooth Module: **ZS-040 (HC-06)**
+- Ultrasonic Sensor: **HC-SR04** *(check out `docs/`)*
+- Bluetooth Module: **ZS-040 (HC-06)** *(check out `docs/`)*
 	- Our specific chip: https://www.hc01.com/goods/640e91920be12d0114404c96
 	- https://www.martyncurrey.com/arduino-and-hc-06-zs-040/
 		- *"There are several slightly different versions of the HC-06, however, all seem to use the same firmware and have the same AT commands."*
@@ -14,21 +15,26 @@ College project involving a car controlled by an Arduino MEGA via Bluetooth also
 ---
 
 # TODO
-- [ ] Test/upload current files to hardware
-- [ ] Rename all variables of `engineTesting.ino` since they're basically all wrong because I considered the wrong schematics
 - [ ] FIX the duplicity of `.vscode/*` files considering running on Linux AND Windows
 - [ ] Update/embed (properly) the main images under `media/` to this `README.md`
 
 # DONE
 - [x] Figure out how to split the project code into multiple files
   - Writing the basics of the header files:
-    - [x] `US_HC-SR04.h`
+    - [x] `pin.h`
+    - [x] `commonFunctions.h`
     - [x] `BT_HC-06_ZS-040.h`
+    - [x] `US_HC-SR04.h`
+    - [x] `engine.h`
   - [x] Get the multiple files working together (at least 'Verifiable')
+- [x] Rename all variables of `engineTesting.ino` since they're basically all wrong because I considered the wrong schematics *(credits to @EduardoDepari)*
 
 ---
 
 @2023-10-26
-- [x] Ultrasonic Sensor `pulseIn()` duration **timeout**
-- [x] (`src/commonFunctions.h`) `runForDuration()` function using `millis()`
+- [x] OPTIMIZATION: Ultrasonic Sensor `pulseIn()` duration **timeout**
+- [x] FEATURE: (`src/commonFunctions.h`) `runForDuration()` function using `millis()`
   - [x] `while(runForDuration())` for *`testingRoutines()`
+
+@2023-10-30
+- [x] FEATURE: `forwards()` - Movement restrictions based on sensors' proximity.

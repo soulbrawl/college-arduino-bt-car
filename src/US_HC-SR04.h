@@ -1,5 +1,9 @@
-class UltrasonicSensor {
+// DELETE/COMMENT when VERIFYING/UPLOADING the includes below
+// -- poor fix for VSCode syntax highlighting BUG
+// #include "pin.h"
+// #include "commonFunctions.h"
 
+class UltrasonicSensor {
     private:
         // HC-04 variables
         int _trigPin;
