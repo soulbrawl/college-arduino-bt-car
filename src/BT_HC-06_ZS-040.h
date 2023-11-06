@@ -1,12 +1,6 @@
 #include <SoftwareSerial.h>
 SoftwareSerial BTserial(BT_RX_PIN, BT_TX_PIN);
 
-<<<<<<< HEAD
-
-=======
-// Entering AT Mode Method 3. Close the small push button switch after the HC-05 is powered.
->>>>>>> b6d6224 (added small blob for BT)
-
 class bluetoothModule {
     private:
 
