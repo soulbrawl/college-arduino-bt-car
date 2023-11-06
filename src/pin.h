@@ -6,8 +6,13 @@
 // thus using less memory than creating `const int` variables.
 #define BUILTIN_LED 13
 
-#define BT_RX_PIN 0
-#define BT_TX_PIN 1
+// Bluetooth RXD to Arduino Mega pin 11
+// Bluetooth TXD to Arduino Mega pin 10
+// #define RxD 10
+// #define TxD 11
+// SoftwareSerial BTSerial(RxD, TxD);
+#define BT_RX_PIN 15
+#define BT_TX_PIN 14
 
 #define ENGINE_FL 11
 #define ENGINE_FR 8
