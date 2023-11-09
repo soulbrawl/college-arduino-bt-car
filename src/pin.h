@@ -1,6 +1,6 @@
 // DELETE/COMMENT when VERIFYING/UPLOADING the includes below
 // -- poor fix for VSCode syntax highlighting BUG
-// #define SPEED 50 // analog = 0->255
+// #define speed 50 // analog = 0->255
 
 // Using `#define` REPLACES (like a macro) the value precompiling (or during compiling, not sure)
 // thus using less memory than creating `const int` variables.

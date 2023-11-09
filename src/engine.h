@@ -4,7 +4,7 @@
 // #include "US_HC-SR04.h"
 // #include "commonFunctions.h"
 
-const unsigned int safeDistance = 10;
+const unsigned int SAFE_DISTANCE = 10;
 
 void engineSetup() {
     pinMode(ENGINE_FL, OUTPUT);
@@ -24,10 +24,10 @@ void forwards() {
     ultrasonicSensors[0].US_Loop();
     ultrasonicSensors[1].US_Loop();
 
-    if (ultrasonicSensors[0]._distanceCm > safeDistance &&
-        ultrasonicSensors[1]._distanceCm > safeDistance) {
-        analogWrite(ENGINE_FL, SPEED);
-        analogWrite(ENGINE_FR, SPEED);
+    if (ultrasonicSensors[0]._distanceCm > SAFE_DISTANCE &&
+        ultrasonicSensors[1]._distanceCm > SAFE_DISTANCE) {
+        analogWrite(ENGINE_FL, speed);
+        analogWrite(ENGINE_FR, speed);
         digitalWrite(ENGINE_BL, LOW);
         digitalWrite(ENGINE_BR, LOW);
     } else {
@@ -39,28 +39,28 @@ void backwards() {
     ultrasonicSensors[2].US_Loop();
     ultrasonicSensors[3].US_Loop();
 
-    if (ultrasonicSensors[2]._distanceCm > safeDistance &&
-        ultrasonicSensors[3]._distanceCm > safeDistance) {
+    if (ultrasonicSensors[2]._distanceCm > SAFE_DISTANCE &&
+        ultrasonicSensors[3]._distanceCm > SAFE_DISTANCE) {
         digitalWrite(ENGINE_FL, LOW);
         digitalWrite(ENGINE_FR, LOW);
-        analogWrite(ENGINE_BL, SPEED);
-        analogWrite(ENGINE_BR, SPEED);
+        analogWrite(ENGINE_BL, speed);
+        analogWrite(ENGINE_BR, speed);
     } else {
         stop();
     }
 }
 
 void turnRight() {
-    analogWrite(ENGINE_FL, SPEED);
+    analogWrite(ENGINE_FL, speed);
     digitalWrite(ENGINE_FR, LOW);
     digitalWrite(ENGINE_BL, LOW);
-    analogWrite(ENGINE_BR, SPEED);
+    analogWrite(ENGINE_BR, speed);
 }
 
 void turnLeft() {
     digitalWrite(ENGINE_FL, LOW);
-    analogWrite(ENGINE_FR, SPEED);
-    analogWrite(ENGINE_BL, SPEED);
+    analogWrite(ENGINE_FR, speed);
+    analogWrite(ENGINE_BL, speed);
     digitalWrite(ENGINE_BR, LOW);
 }
 
@@ -68,7 +68,7 @@ void (*engineMovementFunctions[5])() = {forwards, backwards, turnLeft, turnRight
 
 void engineTestingRoutine() {
     for (int i = 0; i < 5; i++) {
-        while (runForDuration(2000)) {
+        while (runForDuration(3000)) {
             engineMovementFunctions[i]();
         }
     }
