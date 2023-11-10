@@ -6,6 +6,7 @@ class UltrasonicSensor {
         long _duration;
         char _id[3]; // Assuming IDs are two characters plus null terminator
         constexpr uint16_t PulseInTimeoutMicros = 24000;
+        constexpr uint16_t MaxRange = 400;
 
     public:
         // Constructor
@@ -48,9 +49,10 @@ class UltrasonicSensor {
             // Calculating the distance
             _distanceCm = _duration * 0.034 / 2;
 
-            if (_distanceCm == 0) _distanceCm = 400;
+            if (_distanceCm == 0) _distanceCm = MaxRange;
         }
 
+        #if defined(DEBUG_MODE) || defined(DEBUG_MODE_ROUTINE_LOOPING_ONLY)
         void US_Display() {
             Serial.print(_id);
             Serial.print(": ");
@@ -58,6 +60,7 @@ class UltrasonicSensor {
             Serial.print(" Cm distance");
             Serial.print("\n");
         }
+        #endif
 };
 
 // creating each Ultrasonic Sensor class/object
@@ -75,6 +78,7 @@ void ultrasonicSensorSetup() {
     ultrasonicSensors[3].US_Setup(US_BR_TRIG_PIN, US_BR_ECHO_PIN);
 }
 
+#if defined(DEBUG_MODE) || defined(DEBUG_MODE_ROUTINE_LOOPING_ONLY)
 void ultrasonicSensorTestingRoutine() {
     for (int i = 0; i < 4; i++) {
         while (runForDuration(TestDurationMillis)) {
@@ -83,3 +87,4 @@ void ultrasonicSensorTestingRoutine() {
         }
     }
 }
+#endif

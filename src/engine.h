@@ -58,6 +58,7 @@ void turnLeft() {
     digitalWrite(ENGINE_BR, LOW);
 }
 
+#if defined(DEBUG_MODE) || defined(DEBUG_MODE_ROUTINE_LOOPING_ONLY)
 void (*engineMovementFunctions[5])() = {forwards, backwards, turnLeft, turnRight, stop};
 
 void engineTestingRoutine() {
@@ -67,3 +68,4 @@ void engineTestingRoutine() {
         }
     }
 }
+#endif

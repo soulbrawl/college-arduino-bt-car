@@ -3,7 +3,9 @@
 // Actually in this case, using `constexpr` is even better due to Type Safety and Compile-Time optimizations.
 // check out more about the info above: https://chat.openai.com/share/491c1281-0e4d-4130-83fe-ee9a1a6c0dc7
 
-constexpr uint8_t BUILTIN_LED = 2;
+#if defined(DEBUG_MODE) || defined(DEBUG_MODE_ROUTINE_LOOPING_ONLY)
+constexpr uint8_t BUILTIN_LED = 2; // ESP32 = pin 2
+#endif
 
 constexpr uint8_t ENGINE_FL = 11;
 constexpr uint8_t ENGINE_FR = 8;

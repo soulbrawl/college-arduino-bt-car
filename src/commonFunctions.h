@@ -1,3 +1,4 @@
+#if defined(DEBUG_MODE) || defined(DEBUG_MODE_ROUTINE_LOOPING_ONLY)
 constexpr uint16_t TestDurationMillis = 3000;
 
 void blinkLED() {
@@ -31,3 +32,4 @@ bool runForDuration(uint64_t timeInMilliseconds) {
         return false;
     }
 }
+#endif
