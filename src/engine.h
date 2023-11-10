@@ -1,10 +1,4 @@
-// DELETE/COMMENT when VERIFYING/UPLOADING the includes below
-// -- poor fix for VSCode syntax highlighting BUG
-// #include "pin.h"
-// #include "US_HC-SR04.h"
-// #include "commonFunctions.h"
-
-const unsigned int SAFE_DISTANCE = 10;
+constexpr uint8_t SafeDistance = 10;
 
 void engineSetup() {
     pinMode(ENGINE_FL, OUTPUT);
@@ -24,8 +18,8 @@ void forwards() {
     ultrasonicSensors[0].US_Loop();
     ultrasonicSensors[1].US_Loop();
 
-    if (ultrasonicSensors[0]._distanceCm > SAFE_DISTANCE &&
-        ultrasonicSensors[1]._distanceCm > SAFE_DISTANCE) {
+    if (ultrasonicSensors[0]._distanceCm > SafeDistance &&
+        ultrasonicSensors[1]._distanceCm > SafeDistance) {
         analogWrite(ENGINE_FL, speed);
         analogWrite(ENGINE_FR, speed);
         digitalWrite(ENGINE_BL, LOW);
@@ -39,8 +33,8 @@ void backwards() {
     ultrasonicSensors[2].US_Loop();
     ultrasonicSensors[3].US_Loop();
 
-    if (ultrasonicSensors[2]._distanceCm > SAFE_DISTANCE &&
-        ultrasonicSensors[3]._distanceCm > SAFE_DISTANCE) {
+    if (ultrasonicSensors[2]._distanceCm > SafeDistance &&
+        ultrasonicSensors[3]._distanceCm > SafeDistance) {
         digitalWrite(ENGINE_FL, LOW);
         digitalWrite(ENGINE_FR, LOW);
         analogWrite(ENGINE_BL, speed);
@@ -67,8 +61,8 @@ void turnLeft() {
 void (*engineMovementFunctions[5])() = {forwards, backwards, turnLeft, turnRight, stop};
 
 void engineTestingRoutine() {
-    for (int i = 0; i < 5; i++) {
-        while (runForDuration(3000)) {
+    for (uint8_t i = 0; i < 5; i++) {
+        while (runForDuration(TestDurationMillis)) {
             engineMovementFunctions[i]();
         }
     }

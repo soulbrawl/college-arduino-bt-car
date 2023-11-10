@@ -1,3 +1,5 @@
+constexpr uint16_t TestDurationMillis = 3000;
+
 void blinkLED() {
     // Turn the LED on (HIGH) for 1 second.
     digitalWrite(BUILTIN_LED, HIGH);
@@ -8,8 +10,8 @@ void blinkLED() {
     delay(300);
 }
 
-bool runForDuration(unsigned long timeInMilliseconds) {
-    static unsigned long functionStartTime;
+bool runForDuration(uint64_t timeInMilliseconds) {
+    static uint64_t functionStartTime;
     static bool functionActive = false;
 
     if (!functionActive) {
@@ -18,7 +20,7 @@ bool runForDuration(unsigned long timeInMilliseconds) {
         functionActive = true;
     }
 
-    unsigned long currentTime = millis();
+    uint64_t currentTime = millis();
 
     if (currentTime - functionStartTime < timeInMilliseconds) {
         // Function is still active

@@ -1,28 +1,27 @@
-// DELETE/COMMENT when VERIFYING/UPLOADING the includes below
-// -- poor fix for VSCode syntax highlighting BUG
-// #include "pin.h"
-// #include "commonFunctions.h"
-
 class UltrasonicSensor {
     private:
         // HC-04 variables
-        int _trigPin;
-        int _echoPin;
+        uint8_t _trigPin;
+        uint8_t _echoPin;
         long _duration;
-        String _id;
+        char _id[3]; // Assuming IDs are two characters plus null terminator
+        constexpr uint16_t PulseInTimeoutMicros = 24000;
 
     public:
         // Constructor
-        UltrasonicSensor(String id) {
-            _id = id;
+        UltrasonicSensor(const char id[3]) { // not recommended to use `constexpr` on function parameters
+            // Copy characters from the provided id to the _id array
+            strncpy(_id, id, sizeof(_id) - 1);
+            // Ensure null termination
+            _id[sizeof(_id) - 1] = '\0';
         }
 
         // Deconstructor
         // ~UltrasonicSensor() { }
 
-        int _distanceCm;
+        uint16_t _distanceCm;
 
-        void US_Setup(int trigPin, int echoPin) {
+        void US_Setup(uint8_t trigPin, uint8_t echoPin) {
             // HC-04 variables
             _trigPin = trigPin;
             _echoPin = echoPin;
@@ -44,7 +43,7 @@ class UltrasonicSensor {
             digitalWrite(_trigPin, LOW);
 
             // Reads the echoPin, returns the sound wave travel time in microseconds
-            _duration = pulseIn(_echoPin, HIGH, 24000); // _duration * 0.034 / 2 * 400 = 6.8??
+            _duration = pulseIn(_echoPin, HIGH, PulseInTimeoutMicros);
 
             // Calculating the distance
             _distanceCm = _duration * 0.034 / 2;
@@ -52,15 +51,12 @@ class UltrasonicSensor {
             if (_distanceCm == 0) _distanceCm = 400;
         }
 
-        // THINKING: Integrating this function above as well?
-        // Bluetooth Display (Serial Monitor for now)
         void US_Display() {
             Serial.print(_id);
             Serial.print(": ");
             Serial.print(_distanceCm);
             Serial.print(" Cm distance");
             Serial.print("\n");
-            // Serial.print("                "); // or using a Display module
         }
 };
 
@@ -79,11 +75,9 @@ void ultrasonicSensorSetup() {
     ultrasonicSensors[3].US_Setup(US_BR_TRIG_PIN, US_BR_ECHO_PIN);
 }
 
-String sensorNames[] = {"FL", "FR", "BL", "BR"};
-
 void ultrasonicSensorTestingRoutine() {
     for (int i = 0; i < 4; i++) {
-        while (runForDuration(3000)) {
+        while (runForDuration(TestDurationMillis)) {
             ultrasonicSensors[i].US_Loop();
             ultrasonicSensors[i].US_Display();
         }
