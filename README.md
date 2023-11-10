@@ -32,7 +32,7 @@
 - [x] FEATURE: `forwards()` - Movement restrictions based on sensors' proximity.
 
 ## *@2023-11-09*
-- [x] ***(tons of refactoring and full migration from Arduino MEGA to ESP32)***
+- [x] *(tons of **refactoring** and **full migration from Arduino MEGA to ESP32**)*
 - [x] Build: **Voltage regulator** for the **ESP32 (12 to 5V)** using a ***LM7805***
 	- [x] Redoing of *power* circuits/**solderings** considering the migration above *(credits to @EduardoDepari and @Kcioban)*
 
