@@ -26,7 +26,7 @@
 ## @2023-10-26
 - [x] OPTIMIZATION: Ultrasonic Sensor `pulseIn()` duration **timeout**
 - [x] FEATURE: (`src/commonFunctions.h`) `runForDuration()` function using `millis()`
-  - [x] `while(runForDuration())` for *`testingRoutines()`
+  - [x] `while(runForDuration())` for `*testingRoutines()`
 
 ## @2023-10-30
 - [x] FEATURE: `forwards()` - Movement restrictions based on sensors' proximity.
