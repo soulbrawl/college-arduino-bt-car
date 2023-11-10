@@ -1,4 +1,4 @@
-// Using `constexpr uint8_t` REPLACES (like a macro) the value precompiling (or during compiling, not sure)
+// Using `#define` textually REPLACES (like a macro) the value precompiling (or during compiling, not sure)
 // thus using less memory than creating `const int` variables.
 // Actually in this case, using `constexpr` is even better due to Type Safety and Compile-Time optimizations.
 // check out more about the info above: https://chat.openai.com/share/491c1281-0e4d-4130-83fe-ee9a1a6c0dc7
