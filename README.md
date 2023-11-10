@@ -37,9 +37,9 @@
 	- [x] Redoing of *power* circuits/**solderings** considering the migration above *(credits to @EduardoDepari and @Kcioban)*
 
 ## *@2023-11-10*
-- [x] Improved data types (`uint*_t`)
+- [x] Improved **data types** (`uint*_t`)
 - [x] Usage of `constexpr` instead of `#define`
-- [x] Added proper debugging modes
+- [x] Added **proper debugging** modes
 	- `DEBUG_MODE`
 	- `DEBUG_MODE_ROUTINE_LOOPING_ONLY`
 
