@@ -5,8 +5,12 @@ class UltrasonicSensor {
         uint8_t _echoPin;
         long _duration;
         char _id[3]; // Assuming IDs are two characters plus null terminator
-        constexpr uint16_t PulseInTimeoutMicros = 24000;
-        constexpr uint16_t MaxRange = 400;
+
+        // In C++, non-static data members cannot be declared as constexpr directly within the class definition,
+        // unless they are also `static`. If these constants are intended to be the same for all instances of the class
+        // and do not depend on instance-specific information, you can make them `static`.
+        static constexpr uint16_t PulseInTimeoutMicros = 24000;
+        static constexpr uint16_t MaxRange = 400;
 
     public:
         // Constructor
