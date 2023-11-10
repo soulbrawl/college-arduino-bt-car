@@ -14,15 +14,13 @@ class UltrasonicSensor {
 
     public:
         // Constructor
+        // No need for Destructing since I'm not using pointers in any Constructor
         UltrasonicSensor(const char id[3]) { // not recommended to use `constexpr` on function parameters
             // Copy characters from the provided id to the _id array
             strncpy(_id, id, sizeof(_id) - 1);
             // Ensure null termination
             _id[sizeof(_id) - 1] = '\0';
         }
-
-        // Deconstructor
-        // ~UltrasonicSensor() { }
 
         uint16_t _distanceCm;
 
