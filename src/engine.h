@@ -1,4 +1,4 @@
-static constexpr uint8_t SafeDistance = 10;
+constexpr uint8_t SafeDistance = 10;
 
 void stop() {
     digitalWrite(ENGINE_FL, LOW);
