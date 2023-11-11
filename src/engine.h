@@ -1,17 +1,18 @@
-constexpr uint8_t SafeDistance = 10;
-
-void engineSetup() {
-    pinMode(ENGINE_FL, OUTPUT);
-    pinMode(ENGINE_FR, OUTPUT);
-    pinMode(ENGINE_BL, OUTPUT);
-    pinMode(ENGINE_BR, OUTPUT);
-}
+static constexpr uint8_t SafeDistance = 10;
 
 void stop() {
     digitalWrite(ENGINE_FL, LOW);
     digitalWrite(ENGINE_FR, LOW);
     digitalWrite(ENGINE_BL, LOW);
     digitalWrite(ENGINE_BR, LOW);
+}
+
+void engineSetup() {
+    pinMode(ENGINE_FL, OUTPUT);
+    pinMode(ENGINE_FR, OUTPUT);
+    pinMode(ENGINE_BL, OUTPUT);
+    pinMode(ENGINE_BR, OUTPUT);
+    stop();
 }
 
 void forwards() {

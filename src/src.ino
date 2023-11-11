@@ -19,7 +19,7 @@ uint8_t speed = 50; // analog = 0 to 255
 void setup() {
     #if defined(DEBUG_MODE) || defined(DEBUG_MODE_ROUTINE_LOOPING_ONLY)
     pinMode(BUILTIN_LED, OUTPUT);
-    digitalWrite(BUILTIN_LED, HIGH);
+    digitalWrite(BUILTIN_LED, LOW);
     #endif
 
     Serial.begin(115200); // make sure your Serial Monitor is also set at this baud rate
@@ -43,7 +43,8 @@ void setup() {
 
 void loop() {
     #if defined(DEBUG_MODE) || defined(DEBUG_MODE_ROUTINE_LOOPING_ONLY)
-    blinkLED(); // don't know if this works or conflict with everything below due the usage of delay()
+    digitalWrite(BUILTIN_LED, HIGH);
+    // blinkLED(); // don't know if this works or conflict with everything below due the usage of delay()
     #endif
 
     #ifdef DEBUG_MODE_ROUTINE_LOOPING_ONLY // looping indefinitely
