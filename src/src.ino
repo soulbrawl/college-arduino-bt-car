@@ -1,10 +1,12 @@
-// #define DEBUG_MODE  // Uncomment to enable (general [BT, etc.]) debugging
+#define DEBUG_MODE // Uncomment to enable (general [BT, etc.]) debugging
 // #define DEBUG_MODE_ROUTINE_LOOPING_ONLY // Uncomment to enable testingRoutine looping
 
-// Dabble App Section
+// #define ENGINE_ACTIVE
+// #define US_ACTIVE // Ultrasonic Sensors
+
 #define CUSTOM_SETTINGS
 #define INCLUDE_GAMEPAD_MODULE
-#include <DabbleESP32.h>
+#include <Dabble.h>
 
 #include "pin.h"
 #include "commonFunctions.h"
@@ -12,9 +14,17 @@
 #include "US_HC-SR04.h"
 
 // `speed` is declared here in this specific position considering headers below use it.
-// uint8_t: Represents an 8-bit unsigned integer. Its range is typically from 0 to 255.
-uint8_t speed = 50; // analog = 0 to 255
+// uint8_t: 8-bit unsigned integer. Its range is typically from 0 to 255.
+uint8_t speed = 60; // analog = 0 to 255
 #include "engine.h"
+
+constexpr uint8_t MIN_SPEED = 60; // analog = 0 to 255
+constexpr uint8_t MAX_SPEED = 180; // analog = 0 to 255
+
+// uint32_t: 32-bit unsigned integer (long)
+uint32_t boostStartTime = 0;
+uint32_t boostDuration = 1000; // (ms)
+bool boostActive = false; // boost management flag
 
 void setup() {
     #if defined(DEBUG_MODE) || defined(DEBUG_MODE_ROUTINE_LOOPING_ONLY)
@@ -22,109 +32,153 @@ void setup() {
     digitalWrite(BUILTIN_LED, LOW);
     #endif
 
-    Serial.begin(115200); // make sure your Serial Monitor is also set at this baud rate
-    #if !defined(DEBUG_MODE_ROUTINE_LOOPING_ONLY)
-    Dabble.begin("RC-Car_dabble"); // set bluetooth name of your device
-    #endif
+    Serial.begin(115200); // make sure your Serial Monitor is also set at this baud rate.
+    Dabble.begin(9600); // (Serial3 [RX3/TX3 on Arduino]) Enter baudrate of your bluetooth module.
 
     #if defined(DEBUG_MODE) || defined(DEBUG_MODE_ROUTINE_LOOPING_ONLY) // running (only) once the car is started
-    Serial.println("ESP32 is ready");
+    Serial.println("HC-05 is ready");
     Serial.println("*Remember to select baud rate and both NL & CR (CRLF in VSCode)");
     #endif
 
+    #ifdef ENGINE_ACTIVE
     engineSetup();
+    #endif
+
+    #ifdef US_ACTIVE
     ultrasonicSensorSetup();
+    #endif
 
     #ifdef DEBUG_MODE // running (only) once the car is started
+    #ifdef ENGINE_ACTIVE
     engineTestingRoutine();
+    #endif
+    #ifdef US_ACTIVE
     ultrasonicSensorTestingRoutine();
     #endif
+    #endif // DEBUG_MODE
 }
 
 void loop() {
     #if defined(DEBUG_MODE) || defined(DEBUG_MODE_ROUTINE_LOOPING_ONLY)
     digitalWrite(BUILTIN_LED, HIGH);
-    // blinkLED(); // don't know if this works or conflict with everything below due the usage of delay()
     #endif
 
     #ifdef DEBUG_MODE_ROUTINE_LOOPING_ONLY // looping indefinitely
+    #ifdef ENGINE_ACTIVE
     engineTestingRoutine();
+    #endif
+    #ifdef US_ACTIVE
     ultrasonicSensorTestingRoutine();
     #endif
+    #endif // DEBUG_MODE_ROUTINE_LOOPING_ONLY
 
-    #if !defined(DEBUG_MODE_ROUTINE_LOOPING_ONLY)
+    #ifndef DEBUG_MODE_ROUTINE_LOOPING_ONLY
     // The function below is used to refresh data obtained from smartphone.
     // Hence calling this function is mandatory in order to get data properly from your mobile.
     Dabble.processInput();
 
-    #ifdef DEBUG_MODE
-    Serial.print("KeyPressed: "); // Serial Monitor debugging
+    #ifdef DEBUG_MODE // Serial Monitor debugging
+    Serial.print("(DEBUG_MODE) ");
+    #ifdef ENGINE_ACTIVE
+    Serial.print("ENGINE: ON // ");
     #endif
+    #ifndef ENGINE_ACTIVE
+    Serial.print("ENGINE: OFF // ");
+    #endif
+    #ifdef US_ACTIVE
+    Serial.print("US: ON // ");
+    #endif
+    #ifndef US_ACTIVE
+    Serial.print("US: OFF // ");
+    #endif
+    Serial.print("speed = ");
+    Serial.print(speed);
+    Serial.print(" // KeyPressed: ");
+    #endif // DEBUG_MODE
 
     if (GamePad.isUpPressed()) {
+        #ifdef ENGINE_ACTIVE
         forwards();
+        #endif
         #ifdef DEBUG_MODE
-        Serial.println('F -> forwards()');
+        Serial.println("F -> forwards()");
         #endif
     }
 
     if (GamePad.isDownPressed()) {
+        #ifdef ENGINE_ACTIVE
         backwards();
+        #endif
         #ifdef DEBUG_MODE
-        Serial.println('B -> backwards()');
+        Serial.println("B -> backwards()");
         #endif
     }
 
     if (GamePad.isLeftPressed()) {
+        #ifdef ENGINE_ACTIVE
         turnLeft();
+        #endif
         #ifdef DEBUG_MODE
-        Serial.println('L -> turnLeft()');
+        Serial.println("L -> turnLeft()");
         #endif
     }
 
     if (GamePad.isRightPressed()) {
+        #ifdef ENGINE_ACTIVE
         turnRight();
+        #endif
         #ifdef DEBUG_MODE
-        Serial.println('R -> turnRight()');
+        Serial.println("R -> turnRight()");
         #endif
     }
 
-    // if (GamePad.isSquarePressed()) { // use while(runForDuration)??
-    //     #ifdef DEBUG_MODE
-    //     Serial.println('Square -> speed BOOST');
-    //     #endif
-    // }
-
     if (GamePad.isCirclePressed()) {
-        if (speed < 235) speed += 10;
+        if (speed < MAX_SPEED) speed += 1;
+        delay(10);
         #ifdef DEBUG_MODE
-        Serial.println('Circle -> INCREASE speed by 10');
+        Serial.print("Circle -> INCREASE speed by 1");
         #endif
     }
 
     if (GamePad.isCrossPressed()) {
-        if (speed > 30) speed -= 10;
+        if (speed > MIN_SPEED) speed -= 1;
+        delay(10);
         #ifdef DEBUG_MODE
-        Serial.println('Cross -> DECREASE speed by 10');
+        Serial.print("Cross -> DECREASE speed by 1");
         #endif
     }
 
-    // if (GamePad.isTrianglePressed()) {
-    //     #ifdef DEBUG_MODE
-    //     Serial.println('Triangle -> ');
-    //     #endif
-    // }
+    if (GamePad.isTrianglePressed()) {
+        boostStartTime = millis();
+        speed = MAX_SPEED;
+        boostActive = true;
+        #ifdef DEBUG_MODE
+        Serial.print("Triangle -> MAX_SPEED");
+        #endif
+    } else if (millis() - boostStartTime >= boostDuration) {
+        if (boostActive) speed = MIN_SPEED;
+        boostActive = false;
+    }
+
+    if (GamePad.isSquarePressed()) {
+        speed = MIN_SPEED;
+        #ifdef DEBUG_MODE
+        Serial.print("Square -> MIN_SPEED");
+        #endif
+    }
 
     // if (GamePad.isStartPressed()) {
     //     #ifdef DEBUG_MODE
-    //     Serial.println('Start -> ');
+    //     Serial.println("Start -> ");
     //     #endif
     // }
 
     // if (GamePad.isSelectPressed()) {
     //     #ifdef DEBUG_MODE
-    //     Serial.println('Select -> ');
+    //     Serial.println("Select -> ");
     //     #endif
     // }
-    #endif
+
+    Serial.println();
+    #endif // !DEBUG_MODE_ROUTINE_LOOPING_ONLY
 }

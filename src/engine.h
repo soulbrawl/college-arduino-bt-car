@@ -1,3 +1,4 @@
+#ifdef ENGINE_ACTIVE
 constexpr uint8_t SafeDistance = 10;
 
 void stop() {
@@ -16,6 +17,7 @@ void engineSetup() {
 }
 
 void forwards() {
+    #ifdef US_ACTIVE
     ultrasonicSensors[0].US_Loop();
     ultrasonicSensors[1].US_Loop();
 
@@ -28,9 +30,18 @@ void forwards() {
     } else {
         stop();
     }
+    #endif
+
+    #ifndef US_ACTIVE
+    analogWrite(ENGINE_FL, speed);
+    analogWrite(ENGINE_FR, speed);
+    digitalWrite(ENGINE_BL, LOW);
+    digitalWrite(ENGINE_BR, LOW);
+    #endif
 }
 
 void backwards() {
+    #ifdef US_ACTIVE
     ultrasonicSensors[2].US_Loop();
     ultrasonicSensors[3].US_Loop();
 
@@ -43,6 +54,14 @@ void backwards() {
     } else {
         stop();
     }
+    #endif
+
+    #ifndef US_ACTIVE
+    digitalWrite(ENGINE_FL, LOW);
+    digitalWrite(ENGINE_FR, LOW);
+    analogWrite(ENGINE_BL, speed);
+    analogWrite(ENGINE_BR, speed);
+    #endif
 }
 
 void turnRight() {
@@ -70,3 +89,5 @@ void engineTestingRoutine() {
     }
 }
 #endif
+
+#endif // ENGINE_ACTIVE

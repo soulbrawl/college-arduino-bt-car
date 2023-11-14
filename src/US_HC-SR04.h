@@ -1,3 +1,5 @@
+#ifdef US_ACTIVE
+
 class UltrasonicSensor {
     private:
         // HC-04 variables
@@ -90,3 +92,5 @@ void ultrasonicSensorTestingRoutine() {
     }
 }
 #endif
+
+#endif // US_ACTIVE

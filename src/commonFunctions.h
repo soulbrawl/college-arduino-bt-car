@@ -1,5 +1,5 @@
 #if defined(DEBUG_MODE) || defined(DEBUG_MODE_ROUTINE_LOOPING_ONLY)
-constexpr uint16_t TestDurationMillis = 3000;
+constexpr uint16_t TestDurationMillis = 2000;
 
 void blinkLED() {
     // Turn the LED on (HIGH) for 1 second.
