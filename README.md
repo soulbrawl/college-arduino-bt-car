@@ -1,7 +1,8 @@
 # college-esp32-bt-rc-car
-***(2023.2)*** College project involving a RC car controlled by an ESP32 via Bluetooth using the [Dabble](https://ai.thestempedia.com/docs/dabble-app/getting-started-with-dabble/) app [Gamepad Module](https://ai.thestempedia.com/docs/dabble-app/gamepad-module/) [Android & iOS]) also featuring 4x Ultrasonic Sensors to prevent crashing.
+***(2023.2)*** College project involving a RC car controlled by an Arduino MEGA 2560 via Bluetooth using the HC-05 module and the [Dabble](https://ai.thestempedia.com/docs/dabble-app/getting-started-with-dabble/) app [Gamepad Module](https://ai.thestempedia.com/docs/dabble-app/gamepad-module/) [Android & iOS]) also featuring 4x Ultrasonic Sensors to prevent crashing.
 
-- BT and Logic Control: **ESP-WROOM-32**
+- Logic Control: **Arduino MEGA 2560**
+- BT: **HC-05 Module**
 - Ultrasonic Sensor: **HC-SR04** *(check out `docs/`)*
 - Phone BT app: ***[Dabble](https://ai.thestempedia.com/docs/dabble-app/getting-started-with-dabble/)*** [(Gamepad module)](https://ai.thestempedia.com/docs/dabble-app/gamepad-module/) *(Android & iOS)*
 
@@ -42,6 +43,11 @@
 - [x] Added **proper debugging** modes
 	- `DEBUG_MODE`
 	- `DEBUG_MODE_ROUTINE_LOOPING_ONLY`
+
+## *@2023-11-14*
+- [x] Improved debugging modes
+- [x] migrated back to Arduino due to college supply problems
+- [x] FEATURE: added BOOST mode
 
 ---
 

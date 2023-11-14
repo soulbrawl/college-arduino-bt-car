@@ -12,8 +12,7 @@
             "forcedInclude": [],
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "defines": [],
-            "compileCommands": "${workspaceFolder}/output/compile_commands.json"
+            "defines": []
         },
         {
             "name": "Arduino",
@@ -32,7 +31,7 @@
             "includePath": [
                 "/home/soulbrawl/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
                 "/home/soulbrawl/.arduino15/packages/arduino/hardware/avr/1.8.6/variants/mega",
-                "/home/soulbrawl/.arduino15/packages/arduino/hardware/avr/1.8.6/libraries/SoftwareSerial/src",
+                "/home/soulbrawl/Arduino/libraries/Dabble/src",
                 "/home/soulbrawl/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/lib/gcc/avr/7.3.0/include",
                 "/home/soulbrawl/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/lib/gcc/avr/7.3.0/include-fixed",
                 "/home/soulbrawl/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/include"
