@@ -1,8 +1,8 @@
-#define DEBUG_MODE // Uncomment to enable (general [BT, etc.]) debugging
+// #define DEBUG_MODE // Uncomment to enable (general [BT, etc.]) debugging
 // #define DEBUG_MODE_ROUTINE_LOOPING_ONLY // Uncomment to enable testingRoutine looping
 
-// #define ENGINE_ACTIVE
-// #define US_ACTIVE // Ultrasonic Sensors
+#define ENGINE_ACTIVE
+#define US_ACTIVE // Ultrasonic Sensors
 
 #define CUSTOM_SETTINGS
 #define INCLUDE_GAMEPAD_MODULE
@@ -19,7 +19,7 @@ uint8_t speed = 60; // analog = 0 to 255
 #include "engine.h"
 
 constexpr uint8_t MIN_SPEED = 60; // analog = 0 to 255
-constexpr uint8_t MAX_SPEED = 180; // analog = 0 to 255
+constexpr uint8_t MAX_SPEED = 225; // analog = 0 to 255
 
 // uint32_t: 32-bit unsigned integer (long)
 uint32_t boostStartTime = 0;
@@ -96,6 +96,18 @@ void loop() {
     Serial.print(" // KeyPressed: ");
     #endif // DEBUG_MODE
 
+    if (!GamePad.isUpPressed() &&
+        !GamePad.isDownPressed() &&
+        !GamePad.isLeftPressed() &&
+        !GamePad.isRightPressed()) {
+        #ifdef ENGINE_ACTIVE
+        stop();
+        #endif
+        #ifdef DEBUG_MODE
+        Serial.println("NO direction pressed -> stop()");
+        #endif
+    }
+
     if (GamePad.isUpPressed()) {
         #ifdef ENGINE_ACTIVE
         forwards();
@@ -134,7 +146,7 @@ void loop() {
 
     if (GamePad.isCirclePressed()) {
         if (speed < MAX_SPEED) speed += 1;
-        delay(10);
+        delay(5);
         #ifdef DEBUG_MODE
         Serial.print("Circle -> INCREASE speed by 1");
         #endif
@@ -142,7 +154,7 @@ void loop() {
 
     if (GamePad.isCrossPressed()) {
         if (speed > MIN_SPEED) speed -= 1;
-        delay(10);
+        delay(5);
         #ifdef DEBUG_MODE
         Serial.print("Cross -> DECREASE speed by 1");
         #endif
