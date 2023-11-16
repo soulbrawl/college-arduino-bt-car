@@ -29,7 +29,7 @@ bool boostActive = false; // boost management flag
 void setup() {
     #if defined(DEBUG_MODE) || defined(DEBUG_MODE_ROUTINE_LOOPING_ONLY)
     pinMode(BUILTIN_LED, OUTPUT);
-    digitalWrite(BUILTIN_LED, LOW);
+    digitalWrite(BUILTIN_LED, HIGH);
     #endif
 
     Serial.begin(115200); // make sure your Serial Monitor is also set at this baud rate.
@@ -59,10 +59,6 @@ void setup() {
 }
 
 void loop() {
-    #if defined(DEBUG_MODE) || defined(DEBUG_MODE_ROUTINE_LOOPING_ONLY)
-    digitalWrite(BUILTIN_LED, HIGH);
-    #endif
-
     #ifdef DEBUG_MODE_ROUTINE_LOOPING_ONLY // looping indefinitely
     #ifdef ENGINE_ACTIVE
     engineTestingRoutine();
