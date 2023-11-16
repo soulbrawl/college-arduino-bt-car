@@ -1,4 +1,4 @@
-# college-esp32-bt-rc-car
+# college-arduino-bt-rc-car
 ***(2023.2)*** College project involving a RC car controlled by an Arduino MEGA 2560 via Bluetooth using the HC-05 module and the [Dabble](https://ai.thestempedia.com/docs/dabble-app/getting-started-with-dabble/) app [Gamepad Module](https://ai.thestempedia.com/docs/dabble-app/gamepad-module/) [Android & iOS]) also featuring 4x Ultrasonic Sensors to prevent crashing.
 
 - Logic Control: **Arduino MEGA 2560**
