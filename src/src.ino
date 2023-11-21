@@ -8,8 +8,8 @@
 #define INCLUDE_GAMEPAD_MODULE
 #include <Dabble.h>
 
-#include "pin.h"
-#include "commonFunctions.h"
+#include "pins.h"
+#include "utils.h"
 
 #include "US_HC-SR04.h"
 
@@ -174,18 +174,6 @@ void loop() {
         Serial.print("Square -> MIN_SPEED");
         #endif
     }
-
-    // if (GamePad.isStartPressed()) {
-    //     #ifdef DEBUG_MODE
-    //     Serial.println("Start -> ");
-    //     #endif
-    // }
-
-    // if (GamePad.isSelectPressed()) {
-    //     #ifdef DEBUG_MODE
-    //     Serial.println("Select -> ");
-    //     #endif
-    // }
 
     Serial.println();
     #endif // !DEBUG_MODE_ROUTINE_LOOPING_ONLY
